@@ -1285,7 +1285,7 @@ bool32 ShouldTeraShellDistortTypeMatchups(u32 move, u32 battlerDef)
     GET_MOVE_TYPE(move, moveType);
     if (!(gBattleStruct->distortedTypeMatchups & gBitTable[battlerDef])
      && GetBattlerAbility(battlerDef) == ABILITY_TERA_SHELL
-     && gBattleMons[battlerDef].species == SPECIES_TERAPAGOS_TERASTAL
+     /*&& gBattleMons[battlerDef].species == SPECIES_TERAPAGOS_TERASTAL*/
      && !IS_MOVE_STATUS(move)
      && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
      && gBattleMons[battlerDef].hp == gBattleMons[battlerDef].maxHP

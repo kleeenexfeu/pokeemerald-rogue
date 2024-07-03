@@ -6403,10 +6403,11 @@ static void Cmd_switchindataupdate(void)
     for (i = 0; i < sizeof(struct BattlePokemon); i++)
         monData[i] = gBattleResources->bufferB[battler][4 + i];
 
-    gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].types[0];
-    gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].types[1];
+    gBattleMons[battler].type1 = GetMonData(GetBattlerPartyData(battler), MON_DATA_TYPE1, NULL);
+    gBattleMons[battler].type2 = GetMonData(GetBattlerPartyData(battler), MON_DATA_TYPE2, NULL);
     gBattleMons[battler].type3 = TYPE_MYSTERY;
-    gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, gBattleMons[battler].otId);
+    gBattleMons[battler].ability = GetMonData(GetBattlerPartyData(battler), MON_DATA_ABILITY, NULL);
+    gBattleMons[battler].nature = GetMonData(GetBattlerPartyData(battler), MON_DATA_NATURE, NULL);
 
     // check knocked off item
     i = GetBattlerSide(battler);
@@ -9131,7 +9132,7 @@ static void Cmd_various(void)
         {
             gBattleStruct->palaceFlags |= gBitTable[battler];
             gBattleCommunication[0] = TRUE;
-            gBattleCommunication[MULTISTRING_CHOOSER] = sBattlePalaceNatureToFlavorTextId[GetNatureFromPersonality(gBattleMons[battler].personality)];
+            gBattleCommunication[MULTISTRING_CHOOSER] = sBattlePalaceNatureToFlavorTextId[gBattleMons[battler].nature];
         }
         break;
     }

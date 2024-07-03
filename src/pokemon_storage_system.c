@@ -6982,12 +6982,7 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
         sStorage->displayMonGender = GetMonGender(mon);
         if (sStorage->displayMonSpecies != SPECIES_NONE)
         {
-            sanityIsBadEgg = GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG);
-            if (sanityIsBadEgg)
-                sStorage->displayMonIsEgg = TRUE;
-            else
-                sStorage->displayMonIsEgg = GetMonData(mon, MON_DATA_IS_EGG);
-
+            sStorage->displayMonIsEgg = GetMonData(mon, MON_DATA_IS_EGG);
             GetMonData(mon, MON_DATA_NICKNAME, sStorage->displayMonName);
             StringGet_Nickname(sStorage->displayMonName);
             sStorage->displayMonLevel = GetMonData(mon, MON_DATA_LEVEL);
@@ -7007,13 +7002,7 @@ static void SetDisplayMonData(void *pokemon, u8 mode)
         sStorage->displayMonGender = GetMonGender(pokemon);
         if (sStorage->displayMonSpecies != SPECIES_NONE)
         {
-            sanityIsBadEgg = GetBoxMonData(boxMon, MON_DATA_SANITY_IS_BAD_EGG);
-            if (sanityIsBadEgg)
-                sStorage->displayMonIsEgg = TRUE;
-            else
-                sStorage->displayMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
-
-
+            sStorage->displayMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
             GetBoxMonData(boxMon, MON_DATA_NICKNAME, sStorage->displayMonName);
             StringGet_Nickname(sStorage->displayMonName);
             sStorage->displayMonLevel = GetLevelFromBoxMonExp(boxMon);
@@ -9719,8 +9708,7 @@ bool32 CheckBoxMonSanityAt(u32 boxId, u32 boxPosition)
     if (boxId < TOTAL_BOXES_COUNT
         && boxPosition < IN_BOX_COUNT
         && GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition], MON_DATA_SANITY_HAS_SPECIES)
-        && !GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition], MON_DATA_SANITY_IS_EGG)
-        && !GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition], MON_DATA_SANITY_IS_BAD_EGG))
+        && !GetBoxMonData(&gPokemonStoragePtr->boxes[boxId][boxPosition], MON_DATA_SANITY_IS_EGG))
         return TRUE;
     else
         return FALSE;

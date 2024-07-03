@@ -19,7 +19,8 @@ STATIC_ASSERT(sizeof(struct RoguePartyMon) == 4, SizeOfRoguePartyMon);
 // Split into 32bit blocks
 struct RogueSafariMon
 {
-    u32 species     : 16;
+    u32 species     : 11;
+    u32 nature      : 5; // 24 natures
     u32 hpIV        : 5;
     u32 attackIV    : 5;
     u32 defenseIV   : 5;
@@ -29,10 +30,9 @@ struct RogueSafariMon
     u32 spAttackIV  : 5;
     u32 spDefenseIV : 5;
     u32 pokeball    : 5; // 31 balls for EX
-    u32 nature      : 5; // 24 natures
-    u32 abilityNum  : 2; // technically only needs to be 1 for Vanilla
+    u32 abilityNum  : 9; // technically only needs to be 1 for Vanilla
     u32 genderFlag  : 1;
-    u32 unused0     : 4;
+    u32 unused0     : 2;
     
     // Adding this makes it jump from 8 bytes per mon to 20
     u8 nickname[POKEMON_NAME_LENGTH];
@@ -220,12 +220,12 @@ struct RogueWildEncounters
 // We just want this to be the same size as box pokemon so we can reserve the memory and cast laterpartyPid
 struct RogueBoxPokemonFacade
 {
-    u8 data[80];
+    u8 data[68];
 };
 
 struct RoguePokemonFacade
 {
-    u8 data[104];
+    u8 data[80];
 };
 
 struct RogueDaycarePokemon

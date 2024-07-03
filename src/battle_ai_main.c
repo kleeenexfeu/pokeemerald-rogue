@@ -5425,6 +5425,9 @@ static s32 AI_Roaming(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     if (IsBattlerTrapped(battlerAtk, FALSE))
         return score;
 
+    if (IsOtherTrainer(GetMonData(GetBattlerPartyData(battlerAtk), MON_DATA_OT_ID, NULL)))
+        return score; // custom mon don't flee
+
     AI_Flee();
     return score;
 }

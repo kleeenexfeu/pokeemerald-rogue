@@ -1195,45 +1195,11 @@ void ResetTrickHouseNuggetFlag(void)
     FlagClear(flag);
 }
 
-bool8 CheckLeadMonCool(void)
-{
-    if (GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_COOL) < 200)
-        return FALSE;
-
-    return TRUE;
-}
-
-bool8 CheckLeadMonBeauty(void)
-{
-    if (GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_BEAUTY) < 200)
-        return FALSE;
-
-    return TRUE;
-}
-
-bool8 CheckLeadMonCute(void)
-{
-    if (GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_CUTE) < 200)
-        return FALSE;
-
-    return TRUE;
-}
-
-bool8 CheckLeadMonSmart(void)
-{
-    if (GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_SMART) < 200)
-        return FALSE;
-
-    return TRUE;
-}
-
-bool8 CheckLeadMonTough(void)
-{
-    if (GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_TOUGH) < 200)
-        return FALSE;
-
-    return TRUE;
-}
+bool8 CheckLeadMonCool(void){return 0;}
+bool8 CheckLeadMonBeauty(void){return 0;}
+bool8 CheckLeadMonCute(void){return 0;}
+bool8 CheckLeadMonSmart(void){return 0;}
+bool8 CheckLeadMonTough(void){return 0;}
 
 u8 GetLeadMonLevel(void)
 {
@@ -1251,7 +1217,7 @@ void IsGrassTypeInParty(void)
         if (GetMonData(pokemon, MON_DATA_SANITY_HAS_SPECIES) && !GetMonData(pokemon, MON_DATA_IS_EGG))
         {
             species = GetMonData(pokemon, MON_DATA_SPECIES);
-            if (gSpeciesInfo[species].types[0] == TYPE_GRASS || gSpeciesInfo[species].types[1] == TYPE_GRASS)
+            if (GetMonData(pokemon, MON_DATA_TYPE1) == TYPE_GRASS || GetMonData(pokemon, MON_DATA_TYPE2, NULL) == TYPE_GRASS)
             {
                 gSpecialVar_Result = TRUE;
                 return;
@@ -1477,10 +1443,7 @@ bool8 ScriptCheckFreePokemonStorageSpace(void)
 
 bool8 IsPokerusInParty(void)
 {
-    if (!CheckPartyPokerus(gPlayerParty, (1 << PARTY_SIZE) - 1))
-        return FALSE;
-
-    return TRUE;
+    return FALSE;
 }
 
 // Task data for Task_ShakeCamera
@@ -1684,15 +1647,6 @@ bool8 BufferTMHMMoveName(void)
 
 bool8 IsBadEggInParty(void)
 {
-    u8 partyCount = CalculatePlayerPartyCount();
-    u8 i;
-
-    for (i = 0; i < partyCount; i++)
-    {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SANITY_IS_BAD_EGG) == TRUE)
-            return TRUE;
-    }
-
     return FALSE;
 }
 

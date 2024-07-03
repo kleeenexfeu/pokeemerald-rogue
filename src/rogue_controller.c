@@ -6415,10 +6415,7 @@ static void MonGainRewardEVs(struct Pokemon *mon)
         if (totalEVs >= MAX_TOTAL_EVS)
             break;
 
-        if (CheckPartyHasHadPokerus(mon, 0))
-            multiplier = 2;
-        else
-            multiplier = 1;
+        multiplier = 1;
         
         if(multiplier == 0)
             continue;

@@ -1204,9 +1204,7 @@ static bool8 UNUSED QuestCondition_PartyContainsType(u16 questId, struct RogueQu
 
     for(i = 0; i < gPlayerPartyCount; ++i)
     {
-        species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
-
-        if(RoguePokedex_GetSpeciesType(species, 0) == targetType || RoguePokedex_GetSpeciesType(species, 1) == targetType)
+        if(GetMonData(&gPlayerParty[i], MON_DATA_TYPE1, NULL) == targetType || GetMonData(&gPlayerParty[i], MON_DATA_TYPE2, NULL)  == targetType)
         {
             return TRUE;
         }
@@ -1227,7 +1225,7 @@ static bool8 QuestCondition_PartyOnlyContainsType(u16 questId, struct RogueQuest
     {
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES);
 
-        if(RoguePokedex_GetSpeciesType(species, 0) != targetType && RoguePokedex_GetSpeciesType(species, 1) != targetType)
+        if(GetMonData(&gPlayerParty[i], MON_DATA_TYPE1, NULL)  != targetType && GetMonData(&gPlayerParty[i], MON_DATA_TYPE2, NULL)  != targetType)
         {
             return FALSE;
         }

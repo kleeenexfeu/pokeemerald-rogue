@@ -225,7 +225,7 @@ struct RogueBoxPokemonFacade
 
 struct RoguePokemonFacade
 {
-    u8 data[104];
+    u8 data[92];
 };
 
 struct RogueDaycarePokemon

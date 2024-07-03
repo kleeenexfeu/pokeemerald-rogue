@@ -138,6 +138,7 @@ void RogueSafari_CopyFromSafariMon(struct RogueSafariMon* fromMon, struct BoxPok
     COPY_MON_DATA(abilityNum, MON_DATA_ABILITY_NUM);
     COPY_MON_DATA(genderFlag, MON_DATA_GENDER_FLAG);
     COPY_MON_DATA(shinyFlag, MON_DATA_IS_SHINY);
+    COPY_MON_DATA(nature, MON_DATA_NATURE);
 
     SetBoxMonData(toMon, MON_DATA_NICKNAME, fromMon->nickname);
     SetNatureBoxMon(toMon, fromMon->nature);
@@ -166,12 +167,8 @@ void RogueSafari_CopyToSafariMon(struct BoxPokemon* fromMon, struct RogueSafariM
     COPY_MON_DATA(abilityNum, MON_DATA_ABILITY_NUM);
     COPY_MON_DATA(genderFlag, MON_DATA_GENDER_FLAG);
     COPY_MON_DATA(shinyFlag, MON_DATA_IS_SHINY);
-
+    COPY_MON_DATA(nature, MON_DATA_NATURE);
     GetBoxMonData(fromMon, MON_DATA_NICKNAME, toMon->nickname);
-
-    // Use original nature
-    temp = GetBoxMonData(fromMon, MON_DATA_PERSONALITY);
-    toMon->nature = GetNatureFromPersonality(temp);
 }
 
 #undef COPY_MON_DATA

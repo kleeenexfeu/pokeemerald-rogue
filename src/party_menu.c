@@ -2173,8 +2173,6 @@ u8 GetMonAilment(struct Pokemon *mon)
     ailment = GetAilmentFromStatus(GetMonData(mon, MON_DATA_STATUS));
     if (ailment != AILMENT_NONE)
         return ailment;
-    if (CheckPartyPokerus(mon, 0))
-        return AILMENT_PKRS;
     return AILMENT_NONE;
 }
 
@@ -4163,7 +4161,7 @@ static void CursorCb_Register(u8 taskId)
 {
     u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES_OR_EGG);
     u16 species = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES);
-    u8 isModernFatefulEncounter = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MODERN_FATEFUL_ENCOUNTER);
+    u8 isModernFatefulEncounter = 1;
 
     switch (CanRegisterMonForTradingBoard(*(struct RfuGameCompatibilityData *)GetHostRfuGameData(), species2, species, isModernFatefulEncounter))
     {
@@ -4193,7 +4191,7 @@ static void CursorCb_Trade1(u8 taskId)
 {
     u16 species2 = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES_OR_EGG);
     u16 species = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_SPECIES);
-    u8 isModernFatefulEncounter = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_MODERN_FATEFUL_ENCOUNTER);
+    u8 isModernFatefulEncounter = 1;
     u32 stringId = GetUnionRoomTradeMessageId(*(struct RfuGameCompatibilityData *)GetHostRfuGameData(), gRfuPartnerCompatibilityData, species2, gUnionRoomOfferedSpecies, gUnionRoomRequestedMonType, species, isModernFatefulEncounter);
 
     if (stringId != UR_TRADE_MSG_NONE)
@@ -5245,7 +5243,10 @@ void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)
     tState = 0;
     tMonId = gPartyMenu.slotId;
     tSpecies = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPECIES, NULL);
-    tAbilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) ^ 1;
+    if (GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) < 4)
+        tAbilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) ^ 1;
+    else
+        tSpecies = 0; // no effect if mon has custom ability
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_AbilityCapsule;
 }
@@ -5335,8 +5336,10 @@ void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task)
     tSpecies = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPECIES, NULL);
     if (GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) == 2)
         tAbilityNum = 0;
-    else
+    else if (GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) < 4) // don't remove custom ones
         tAbilityNum = 2;
+    else
+        tSpecies = 0; // won't be able to use it on this mon if it has a custom ability
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_AbilityPatch;
 }

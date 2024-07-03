@@ -2026,11 +2026,20 @@ bool8 Rogue_DoesEvolveInto(u16 fromSpecies, u16 toSpecies)
     return FALSE;
 }
 
-void Rogue_AppendSpeciesTypeFlags(u16 species, u32* outFlags)
+void Rogue_AppendSpeciesTypeFlags(u16 species, u32* outFlags, bool32 isMonCheckedFromPlayer)
 {
 #ifdef ROGUE_EXPANSION
+if (isMonCheckedFromPlayer)
+{
+    // species is actually the index of the checked mon from the player party when isMonCheckedFromPlayer is true
+    *outFlags |= MON_TYPE_VAL_TO_FLAGS(GetMonData(&gPlayerParty[species], MON_DATA_TYPE1));
+    *outFlags |= MON_TYPE_VAL_TO_FLAGS(GetMonData(&gPlayerParty[species], MON_DATA_TYPE2));
+}
+else
+{
     *outFlags |= MON_TYPE_VAL_TO_FLAGS(gSpeciesInfo[species].types[0]);
     *outFlags |= MON_TYPE_VAL_TO_FLAGS(gSpeciesInfo[species].types[1]);
+}
 #else
     *outFlags |= MON_TYPE_VAL_TO_FLAGS(gRogueSpeciesInfo[species].type1);
     *outFlags |= MON_TYPE_VAL_TO_FLAGS(gRogueSpeciesInfo[species].type2);

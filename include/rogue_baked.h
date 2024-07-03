@@ -50,7 +50,7 @@ u8 Rogue_GetActiveEvolutionCount(u16 species);
 u8 Rogue_GetActiveFormChangeCount(u16 species);
 bool8 Rogue_DoesEvolveInto(u16 fromSpecies, u16 toSpecies);
 
-void Rogue_AppendSpeciesTypeFlags(u16 species, u32* outFlags);
+void Rogue_AppendSpeciesTypeFlags(u16 species, u32* outFlags, bool32 isMonCheckedFromPlayer);
 u32 Rogue_GetSpeciesEvolutionChainTypeFlags(u16 species);
 u32 Rogue_GetTypeFlagsFromArray(const u8* types, u8 count);
 

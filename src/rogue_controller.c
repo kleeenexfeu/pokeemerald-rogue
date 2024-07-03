@@ -5953,6 +5953,8 @@ void RemoveAnyFaintedMons(bool8 keepItems)
     u8 write = 0;
     bool8 skipReleasing = FALSE;
 
+    return; // Keep fainted mons
+
     if(Rogue_IsRunActive())
     {
         // If we're finished, we don't want to release any mons, just check if anything has fainted or not
@@ -6842,8 +6844,8 @@ static void TryRestorePartyHeldItems(bool8 allowThief)
             item = gRogueRun.partyHeldItems[i];
 
             // Ignore fainted mons
-            if(GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
-                continue;
+            //if(GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)
+            //    continue;
 
             // We're still holding the same item no need to continue
             if(GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM) == item)
@@ -6856,7 +6858,7 @@ static void TryRestorePartyHeldItems(bool8 allowThief)
                     continue;
             }
 
-            // Consume berries but attempt to auto re-equip from bag
+            /*// Consume berries but attempt to auto re-equip from bag
             if(item >= FIRST_BERRY_INDEX && item <= LAST_BERRY_INDEX)
             {
                 if(RemoveBagItem(item, 1))
@@ -6866,7 +6868,7 @@ static void TryRestorePartyHeldItems(bool8 allowThief)
                     failBerryIcon = item;
                     item = ITEM_NONE;
                 }
-            }
+            }*/
 
             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &item);
         }

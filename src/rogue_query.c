@@ -622,7 +622,7 @@ void RogueMonQuery_IsOfType(u8 func, u32 typeFlags)
         if(GetQueryBitFlag(species))
         {
             speciesFlags = 0;
-            Rogue_AppendSpeciesTypeFlags(species, &speciesFlags);
+            Rogue_AppendSpeciesTypeFlags(species, &speciesFlags, FALSE);
 
             if(func == QUERY_FUNC_INCLUDE)
             {

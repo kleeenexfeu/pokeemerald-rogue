@@ -215,20 +215,6 @@ static void TransferEggMoves(void)
 
 static void StorePokemonInDaycare(struct Pokemon *mon, struct DaycareMon *daycareMon)
 {
-    if (MonHasMail(mon))
-    {
-        u8 mailId;
-
-        StringCopy(daycareMon->mail.otName, gSaveBlock2Ptr->playerName);
-        GetMonNickname2(mon, daycareMon->mail.monName);
-        StripExtCtrlCodes(daycareMon->mail.monName);
-        daycareMon->mail.gameLanguage = GAME_LANGUAGE;
-        daycareMon->mail.monLanguage = GetMonData(mon, MON_DATA_LANGUAGE);
-        mailId = GetMonData(mon, MON_DATA_MAIL);
-        daycareMon->mail.message = gSaveBlock1Ptr->mail[mailId];
-        TakeMailFromMon(mon);
-    }
-
     daycareMon->mon = mon->box;
     BoxMonRestorePP(&daycareMon->mon);
     daycareMon->steps = 0;
@@ -1135,8 +1121,6 @@ static bool8 TryProduceOrHatchEgg(struct DayCare *daycare)
         for (i = 0; i < gPlayerPartyCount; i++)
         {
             if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
-                continue;
-            if (GetMonData(&gPlayerParty[i], MON_DATA_SANITY_IS_BAD_EGG))
                 continue;
 
             // Always assume 0 egg cycles left, just incase people decide to be cheeky and pkhex eggs in

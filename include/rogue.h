@@ -220,12 +220,12 @@ struct RogueWildEncounters
 // We just want this to be the same size as box pokemon so we can reserve the memory and cast laterpartyPid
 struct RogueBoxPokemonFacade
 {
-    u8 data[80];
+    u8 data[68];
 };
 
 struct RoguePokemonFacade
 {
-    u8 data[104];
+    u8 data[80];
 };
 
 struct RogueDaycarePokemon

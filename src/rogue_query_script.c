@@ -93,7 +93,7 @@ void RogueQueryScript_SetupVarsForParty(struct QueryScriptContext* context, stru
         if(species != SPECIES_NONE)
         {
             if(includeTypeCoverage)
-                Rogue_AppendSpeciesTypeFlags(species, &context->partyTypeFlags);
+                Rogue_AppendSpeciesTypeFlags(species, &context->partyTypeFlags, FALSE);
 
             if(RoguePokedex_IsSpeciesLegendary(species))
             {

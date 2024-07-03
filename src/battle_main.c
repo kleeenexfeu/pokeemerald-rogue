@@ -3372,9 +3372,7 @@ const u8* FaintClearSetData(u32 battler)
 
     gBattleResources->flags->flags[battler] = 0;
 
-    gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].types[0];
-    gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].types[1];
-    gBattleMons[battler].type3 = TYPE_MYSTERY;
+    FillBattlerTypesFromParty(battler);
 
     Ai_UpdateFaintData(battler);
     TryBattleFormChange(battler, FORM_CHANGE_FAINT);
@@ -3477,10 +3475,9 @@ static void DoBattleIntro(void)
             else
             {
                 memcpy(&gBattleMons[battler], &gBattleResources->bufferB[battler][4], sizeof(struct BattlePokemon));
-                gBattleMons[battler].type1 = gSpeciesInfo[gBattleMons[battler].species].types[0];
-                gBattleMons[battler].type2 = gSpeciesInfo[gBattleMons[battler].species].types[1];
-                gBattleMons[battler].type3 = TYPE_MYSTERY;
-                gBattleMons[battler].ability = GetAbilityBySpecies(gBattleMons[battler].species, gBattleMons[battler].abilityNum, gBattleMons[battler].otId);
+                FillBattlerTypesFromParty(battler);
+                gBattleMons[battler].ability = GetPartyDataFromBattler(battler, MON_DATA_ABILITY);
+                gBattleMons[battler].nature = GetPartyDataFromBattler(battler, MON_DATA_NATURE);    
                 gBattleStruct->hpOnSwitchout[GetBattlerSide(battler)] = gBattleMons[battler].hp;
                 gBattleMons[battler].status2 = 0;
                 for (i = 0; i < NUM_BATTLE_STATS; i++)
@@ -5691,12 +5688,6 @@ static void WaitForEvoSceneToFinish(void)
 
 static void ReturnFromBattleToOverworld(void)
 {
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
-    {
-        RandomlyGivePartyPokerus(gPlayerParty);
-        PartySpreadPokerus(gPlayerParty);
-    }
-
     if (gBattleTypeFlags & BATTLE_TYPE_LINK && gReceivedRemoteLinkPlayers)
         return;
 

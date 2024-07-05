@@ -2395,10 +2395,11 @@ void AnimTask_MegaSwapSprite(u8 taskId)
         gTasks[taskId].data[11] = gSprites[spriteId].x; // Save battler position
 		gSprites[spriteId].x = -64; // hide it from screen to avoid the blip/glitch effect when swapping the sprite
         gTasks[taskId].data[10] = gBattleAnimArgs[0];
+        gTasks[taskId].data[12] = gBattleAnimArgs[1]; // KLEEN : from abbie, apparently it fixes shiny flip from some megas
         gTasks[taskId].data[0]++;
         break;
     case 1:
-        HandleSpeciesGfxDataChange(gBattleAnimAttacker, gBattleAnimTarget, gTasks[taskId].data[10], gBattleAnimArgs[1]);
+        HandleSpeciesGfxDataChange(gBattleAnimAttacker, gBattleAnimTarget, gTasks[taskId].data[10], gTasks[taskId].data[12]); // KLEEN : from abbie, apparently it fixes shiny flip from some megas
         GetBgDataForTransform(&animBg, gBattleAnimAttacker);
 
         if (IsContest())

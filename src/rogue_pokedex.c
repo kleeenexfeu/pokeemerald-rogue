@@ -1451,8 +1451,11 @@ static void DisplayMonMovesText()
                 StringExpandPlaceholders(gStringVar3, gText_PokedexMovesEvo);
             }
             else
-            { 
-                ConvertUIntToDecimalStringN(gStringVar1, gRoguePokemonProfiles[species].levelUpMoves[i].level, STR_CONV_MODE_RIGHT_ALIGN, 2);
+            {
+                if (gRoguePokemonProfiles[species].levelUpMoves[i].level == 100)
+                    ConvertUIntToDecimalStringN(gStringVar1, gRoguePokemonProfiles[species].levelUpMoves[i].level, STR_CONV_MODE_RIGHT_ALIGN, 3);
+                else
+                    ConvertUIntToDecimalStringN(gStringVar1, gRoguePokemonProfiles[species].levelUpMoves[i].level, STR_CONV_MODE_RIGHT_ALIGN, 2);
                 StringCopy(gStringVar2, gMoveNames[gRoguePokemonProfiles[species].levelUpMoves[i].move]);
                 StringExpandPlaceholders(gStringVar3, gText_PokedexMovesLevel);
             }

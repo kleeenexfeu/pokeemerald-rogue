@@ -522,7 +522,7 @@ static const TransitionStateFunc sClockwiseWipe_Funcs[] =
     ClockwiseWipe_TopLeft,
     ClockwiseWipe_End
 };
-
+// useless just to compile
 static const TransitionStateFunc sRipple_Funcs[] =
 {
     Ripple_Init,

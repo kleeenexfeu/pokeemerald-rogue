@@ -42,6 +42,7 @@
 // Special cases
 #define ABILITYEFFECT_MUD_SPORT                  252 // Only used if B_SPORT_TURNS >= GEN_6
 #define ABILITYEFFECT_WATER_SPORT                253 // Only used if B_SPORT_TURNS >= GEN_6
+#define ABILITYEFFECT_SIMULATION                 254 // for legend plate, can probably be used for other stuff
 
 // For the first argument of ItemBattleEffects, to deteremine which block of item effects to try
 #define ITEMEFFECT_ON_SWITCH_IN                 0
@@ -55,6 +56,8 @@
 #define ITEMEFFECT_USE_LAST_ITEM                8 // move end effects for just the battler, not whole field
 
 #define WEATHER_HAS_EFFECT ((!IsAbilityOnField(ABILITY_CLOUD_NINE) && !IsAbilityOnField(ABILITY_AIR_LOCK)))
+
+#define TYPE_CANCELED_BY_PRIMAL(type)(WEATHER_HAS_EFFECT && (type == TYPE_FIRE && (gBattleWeather & B_WEATHER_RAIN_PRIMAL)) || (type == TYPE_WATER && (gBattleWeather & B_WEATHER_SUN_PRIMAL)))
 
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))

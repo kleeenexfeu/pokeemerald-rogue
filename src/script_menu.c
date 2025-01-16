@@ -1034,7 +1034,8 @@ static void PrintUniqueMonInfoToWindow(u8 windowId)
 void ScriptMenu_DisplayUniqueMonInfo()
 {
     u8 taskId;
-    u8 windowId = CreateWindowFromRectWithBaseBlockOffset(12, 1, 14, 10, 8 * 8);
+    u8 windowId = CreateWindowFromRectWithBaseBlockOffset(12, 0, 14, 12, 8 * 8); 
+    // window a little bigger to display types and stats in the future
 
     PrintUniqueMonInfoToWindow(windowId);
 

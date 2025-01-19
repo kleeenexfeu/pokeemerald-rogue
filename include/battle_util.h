@@ -57,8 +57,6 @@
 
 #define WEATHER_HAS_EFFECT ((!IsAbilityOnField(ABILITY_CLOUD_NINE) && !IsAbilityOnField(ABILITY_AIR_LOCK)))
 
-#define TYPE_CANCELED_BY_PRIMAL(type)(WEATHER_HAS_EFFECT && (type == TYPE_FIRE && (gBattleWeather & B_WEATHER_RAIN_PRIMAL)) || (type == TYPE_WATER && (gBattleWeather & B_WEATHER_SUN_PRIMAL)))
-
 #define IS_WHOLE_SIDE_ALIVE(battler)    ((IsBattlerAlive(battler) && IsBattlerAlive(BATTLE_PARTNER(battler))))
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 

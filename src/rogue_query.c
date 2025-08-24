@@ -428,6 +428,17 @@ void RogueMonQuery_IsSpeciesActive()
     }
 }
 
+void RogueMonQuery_IsSpeciesActiveForceDexChecking()
+{
+    u32 species;
+    ASSERT_MON_QUERY;
+
+    for(species = SPECIES_NONE + 1; species < QUERY_NUM_SPECIES; ++species)
+    {
+        SetQueryBitFlag(species, Query_IsSpeciesEnabledForceDexChecking(species));
+    }
+}
+
 void RogueMonQuery_IsBaseSpeciesInCurrentDex(u8 func)
 {
     u32 species;
@@ -769,14 +780,11 @@ static inline bool8 RogueMonQuery_IsLegendaryImpossibleToMeet(u32 species)
         case SPECIES_DEOXYS_SPEED: case SPECIES_DEOXYS_ATTACK:
         case SPECIES_DEOXYS_DEFENSE:
             return TRUE;
+
         case SPECIES_DIALGA_ORIGIN:
-            return TRUE;
         case SPECIES_PALKIA_ORIGIN:
-            return TRUE;
         case SPECIES_GIRATINA_ORIGIN:
-            return TRUE;
         case SPECIES_SHAYMIN_SKY:
-            return TRUE;
         case SPECIES_ARCEUS_FIGHTING: case SPECIES_ARCEUS_FLYING:
         case SPECIES_ARCEUS_POISON: case SPECIES_ARCEUS_GROUND:
         case SPECIES_ARCEUS_ROCK: case SPECIES_ARCEUS_BUG:
@@ -787,39 +795,43 @@ static inline bool8 RogueMonQuery_IsLegendaryImpossibleToMeet(u32 species)
         case SPECIES_ARCEUS_DRAGON: case SPECIES_ARCEUS_DARK:
         case SPECIES_ARCEUS_FAIRY:
             return TRUE;
+
         case SPECIES_DARMANITAN_ZEN_MODE:
-            return TRUE;
         case SPECIES_DARMANITAN_GALARIAN_ZEN_MODE:
-            return TRUE;
         case SPECIES_TORNADUS_THERIAN:
-            return TRUE;
         case SPECIES_THUNDURUS_THERIAN:
-            return TRUE;
         case SPECIES_LANDORUS_THERIAN:
-            return TRUE;
-        case SPECIES_ENAMORUS_THERIAN:
-            return TRUE;
-        case SPECIES_KYUREM_BLACK:
-        case SPECIES_KYUREM_WHITE:
-            return TRUE;
         case SPECIES_MELOETTA_PIROUETTE:
-            return TRUE;
         case SPECIES_GENESECT_BURN_DRIVE: case SPECIES_GENESECT_DOUSE_DRIVE:
         case SPECIES_GENESECT_CHILL_DRIVE: case SPECIES_GENESECT_SHOCK_DRIVE:
             return TRUE;
+
+        case SPECIES_KYUREM: // don't generate kyurem normal form if bw2
+            if (RoguePokedex_GetDexVariant() == POKEDEX_VARIANT_UNOVA_BW2)
+                return TRUE;
+            else
+                return FALSE;
+
+        case SPECIES_KYUREM_BLACK:
+        case SPECIES_KYUREM_WHITE: // don't generate black/white kyurem outside of bw2 dex
+            if (RoguePokedex_GetDexVariant() == POKEDEX_VARIANT_UNOVA_BW2)
+                return FALSE;
+            else
+                return TRUE;
+
+        case SPECIES_ENAMORUS_THERIAN:
         case SPECIES_ZACIAN_CROWNED_SWORD:
-            return TRUE;
         case SPECIES_ZAMAZENTA_CROWNED_SHIELD:
             return TRUE;
+
         case SPECIES_GIMMIGHOUL_ROAMING:
-            return TRUE;
         case SPECIES_OGERPON_WELLSPRING_MASK: case SPECIES_OGERPON_HEARTHFLAME_MASK:
         case SPECIES_OGERPON_CORNERSTONE_MASK: case SPECIES_OGERPON_TEAL_MASK_TERA:
         case SPECIES_OGERPON_WELLSPRING_MASK_TERA: case SPECIES_OGERPON_HEARTHFLAME_MASK_TERA:
         case SPECIES_OGERPON_CORNERSTONE_MASK_TERA: 
-            return TRUE;
         case SPECIES_TERAPAGOS_STELLAR: case SPECIES_TERAPAGOS_TERASTAL:
             return TRUE;
+
         default:
             return FALSE;
     }

@@ -1466,7 +1466,7 @@ void CalculateMonStats(struct Pokemon *mon)
     }
     else
     {
-        s32 n = 2 * (gSpeciesInfo[species].baseHP + GetMonData(mon, MON_DATA_CUSTOM_HP, NULL)) + hpIV;
+        s32 n = 2 * (gSpeciesInfo[species].baseHP + ( 10 * GetMonData(mon, MON_DATA_CUSTOM_HP, NULL)) + hpIV); // Dynamic base HP
         newMaxHP = (((n + hpEV / 4) * level) / 100) + level + 10;
     }
 

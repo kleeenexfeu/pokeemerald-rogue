@@ -524,6 +524,20 @@ void BattleSetup_StartLegendaryBattle(void)
     gBattleTypeFlags = BATTLE_TYPE_LEGENDARY;
 
     species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
+    if (species == SPECIES_KYUREM && RoguePokedex_GetDexVariant() == POKEDEX_VARIANT_UNOVA_BW2)
+    {
+        switch(RogueRandom() % 2)
+        {
+        case 1:
+            species = SPECIES_KYUREM_WHITE;
+            break;
+        default:
+            species = SPECIES_KYUREM_BLACK;
+            break;
+        }
+
+        SetMonData(&gEnemyParty[0], MON_DATA_SPECIES, &species);
+    }
 
     if(Rogue_IsBattleAlphaMon(species))
         gBattleTypeFlags |= BATTLE_TYPE_ALPHA_MON;

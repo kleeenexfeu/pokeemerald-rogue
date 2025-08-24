@@ -964,10 +964,10 @@ void RogueGift_EnsureDynamicCustomMonsAreValid()
     {
         // Override dex variant to our max nat dex
         u8 dexVariantToRestore = RoguePokedex_GetDexVariant();
-        RoguePokedex_SetDexVariant(POKEDEX_VARIANT_DEFAULT);
+        // get rid of this so that we generate only from the current dex RoguePokedex_SetDexVariant(POKEDEX_VARIANT_DEFAULT);
 
         RogueMonQuery_Begin();
-        RogueMonQuery_IsSpeciesActive();
+        RogueMonQuery_IsSpeciesActiveForceDexChecking(); // Only allows mon from our current dex to be generated
         RogueMonQuery_TransformIntoEggSpecies();
         RogueMonQuery_IsLegendaryImpossibleToEncounter(QUERY_FUNC_EXCLUDE);
         //RogueMonQuery_IsLegendary(QUERY_FUNC_EXCLUDE);

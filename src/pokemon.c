@@ -784,7 +784,6 @@ void ZeroEnemyPartyMons(void)
 
 void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
 {
-    u32 mail;
     ZeroMonData(mon);
     CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
     SetMonData(mon, MON_DATA_LEVEL, &level);
@@ -1015,12 +1014,9 @@ void CreateMonWithGenderNatureLetter(struct Pokemon *mon, u16 species, u8 level,
 
     if ((u8)(unownLetter - 1) < NUM_UNOWN_FORMS)
     {
-        u16 actualLetter;
-
         do
         {
             personality = Random32();
-            actualLetter = GET_UNOWN_LETTER(personality);
         }
         while (gender != CalcGenderFromSpeciesAndPersonality(species, personality));
     }
